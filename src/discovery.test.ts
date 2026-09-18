@@ -17,6 +17,16 @@ test("filterFreeModels filters free models with conservative default metadata", 
   assert.equal(bigPickle?.reasoning, false);
 });
 
+test("filterFreeModels ignores malformed live catalog entries", () => {
+  const result = filterFreeModels([
+    { id: null },
+    { id: "" },
+    { id: 42 },
+    { id: "mimo-v2.5-free", name: "MiMo" },
+  ]);
+  assert.deepEqual(result.map(m => m.id), ["opencode/mimo-v2.5-free"]);
+});
+
 test("discoverModels returns empty list when zen fetch fails", async () => {
   const failingFetch = async () => { throw new Error("Offline"); };
   const models = await discoverModels({ fetchFn: failingFetch as typeof fetch });

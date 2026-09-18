@@ -1,16 +1,16 @@
 {
   "name": "pi-opencode-free",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Zero-daemon, pure-passthrough native Pi extension connecting directly to OpenCode Zen API",
   "type": "module",
   "license": "GPL-3.0-or-later",
   "author": "Pedro Alexis",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/pedrostarkealexis/pi-opencode-free.git"
+    "url": "git+https://github.com/rodrigojager/pi-opencode-free.git"
   },
-  "bugs": "https://github.com/pedrostarkealexis/pi-opencode-free/issues",
-  "homepage": "https://github.com/pedrostarkealexis/pi-opencode-free#readme",
+  "bugs": "https://github.com/rodrigojager/pi-opencode-free/issues",
+  "homepage": "https://github.com/rodrigojager/pi-opencode-free#readme",
   "files": [
     "dist",
     "!dist/*.test.*",
@@ -31,6 +31,7 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "prepack": "tsc -p tsconfig.json",
+    "prepare": "tsc -p tsconfig.json",
     "test": "bun test src/",
     "smoke": "bun scripts/smoke-real.ts"
   },

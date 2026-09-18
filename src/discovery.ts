@@ -72,10 +72,11 @@ function buildThinkingLevelMap(meta: ModelMeta | undefined): Record<string, stri
 }
 
 export function filterFreeModels(
-  models: Array<{ id: string; name?: string }>,
+  models: Array<{ id?: unknown; name?: unknown }>,
   opts?: { catalog?: Record<string, ModelMeta> },
 ): OpenCodeModelInfo[] {
   return models
+    .filter((m): m is { id: string; name?: string } => typeof m?.id === "string" && m.id.length > 0 && (m.name === undefined || typeof m.name === "string"))
     .filter(m => FREE_REGEX.test(m.id))
     .map(m => {
       const base = baseModelId(m.id);
@@ -145,7 +146,7 @@ export async function discoverModels(opts?: { fetchFn?: typeof fetch; timeoutMs?
           signal,
         });
         if (!res.ok) return null;
-        return await res.json() as { data?: Array<{ id: string; name?: string }> };
+        return await res.json() as { data?: Array<{ id?: unknown; name?: unknown }> };
       })(),
       fetchModelsDevCatalog(fetcher, signal),
     ]);
